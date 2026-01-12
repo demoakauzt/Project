@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otkryt' Punkt Vydachi - Olib ketish punktini ochish</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .exit-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .exit-btn:hover {
+            background: white;
+            color: #4facfe;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .hero-stat-label {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .why-open {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .why-open h2 {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 50px;
+            color: #333;
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+        }
+
+        .advantage-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .advantage-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(79, 172, 254, 0.2);
+        }
+
+        .advantage-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .advantage-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .advantage-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .requirements {
+            background: #f8f9fa;
+            padding: 80px 20px;
+        }
+
+        .requirements-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .requirements h2 {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 50px;
+            color: #333;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .requirement-item {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #4facfe;
+        }
+
+        .requirement-item h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .requirement-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .requirement-item li {
+            padding: 8px 0;
+            color: #666;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .requirement-item li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4facfe;
+            font-weight: bold;
+        }
+
+        .income-calculator {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .income-calculator h2 {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .calculator-box {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .calculator-input {
+            margin-bottom: 30px;
+        }
+
+        .calculator-input label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .calculator-input input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #e0e0e0;
+            outline: none;
+        }
+
+        .calculator-input input[type="range"]::-webkit-slider-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #4facfe;
+            cursor: pointer;
+        }
+
+        .calculator-value {
+            text-align: center;
+            font-size: 24px;
+            color: #4facfe;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .income-result {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .income-result h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .income-result .amount {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .application-form {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .application-form h2 {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .form-container {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4facfe;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 80px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">📦 Otkryt' Punkt</a>
+            <div class="nav-links">
+                <a href="#advantages">Afzalliklar</a>
+                <a href="#requirements">Talablar</a>
+                <a href="#calculator">Kalkulyator</a>
+                <a href="#apply">Ariza</a>
+                <button class="exit-btn" onclick="handleExit()"><a href="./index.html">🚪 Chiqish</a></button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>O'zingizning Punktingizni Oching!</h1>
+        <p>Barqaror daromad va katta imkoniyatlar</p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="hero-stat-number">5M+</div>
+                <div class="hero-stat-label">Buyurtmalar/oy</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-number">$3000+</div>
+                <div class="hero-stat-label">O'rtacha daromad</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-number">2000+</div>
+                <div class="hero-stat-label">Faol punktlar</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="why-open" id="advantages">
+        <h2>Nima uchun bizning punktimizni ochish kerak?</h2>
+        <div class="advantages-grid">
+            <div class="advantage-card">
+                <div class="advantage-icon">💰</div>
+                <h3>Barqaror Daromad</h3>
+                <p>Har bir buyurtma uchun 50-150 so'm. O'rtacha kuniga 200+ buyurtma</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">🚀</div>
+                <h3>Tez Boshlash</h3>
+                <p>14 kun ichida punktingiz to'liq ishga tushadi</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">📊</div>
+                <h3>Marketing</h3>
+                <p>Biz mijozlarni yetkazib beramiz - siz faqat xizmat ko'rsatasiz</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">🛠️</div>
+                <h3>Texnik Yordam</h3>
+                <p>Barcha jihozlar, dasturiy ta'minot va o'qitish bepul</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">📈</div>
+                <h3>O'sish Potentsiali</h3>
+                <p>Yaxshi punktlar uchun bir necha filiallar ochish imkoniyati</p>
+            </div>
+            <div class="advantage-card">
+                <div class="advantage-icon">🤝</div>
+                <h3>24/7 Qo'llab-quvvatlash</h3>
+                <p>Bizning jamoa har doim yordam berishga tayyor</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="requirements" id="requirements">
+        <div class="requirements-container">
+            <h2>Talablar</h2>
+            <div class="requirements-grid">
+                <div class="requirement-item">
+                    <h3>📍 Xona</h3>
+                    <ul>
+                        <li>Minimal 20-30 m²</li>
+                        <li>Birinchi qavat yoki parter</li>
+                        <li>Yaxshi ko'rinadigan joy</li>
+                        <li>Ombor bo'limi</li>
+                    </ul>
+                </div>
+                <div class="requirement-item">
+                    <h3>💼 Biznes</h3>
+                    <ul>
+                        <li>YaTT yoki MChJ</li>
+                        <li>Bank hisob raqami</li>
+                        <li>Soliq to'lash huquqi</li>
+                        <li>Toza biznes tarix</li>
+                    </ul>
+                </div>
+                <div class="requirement-item">
+                    <h3>👥 Xodimlar</h3>
+                    <ul>
+                        <li>Minimal 2 ishchi</li>
+                        <li>Smenalik ish tartibi</li>
+                        <li>Mijozlarga xizmat ko'rsatish ko'nikmalari</li>
+                        <li>Kompyuter bilan ishlash bilimi</li>
+                    </ul>
+                </div>
+                <div class="requirement-item">
+                    <h3>💵 Investitsiya</h3>
+                    <ul>
+                        <li>Boshlang'ich: 15-25 mln so'm</li>
+                        <li>Ta'mirlash va jihozlar</li>
+                        <li>Birinchi 3 oy xarajatlari</li>
+                        <li>Qaytish muddati: 6-12 oy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="income-calculator" id="calculator">
+        <h2>Daromad Kalkulyatori</h2>
+        <div class="calculator-box">
+            <div class="calculator-input">
+                <label>Kunlik buyurtmalar soni:</label>
+                <input type="range" id="ordersSlider" min="50" max="500" value="200" step="10">
+                <div class="calculator-value"><span id="ordersValue">200</span> ta buyurtma</div>
+            </div>
+            <div class="calculator-input">
+                <label>Buyurtma uchun to'lov (so'm):</label>
+                <input type="range" id="feeSlider" min="50" max="150" value="100" step="10">
+                <div class="calculator-value"><span id="feeValue">100</span> so'm</div>
+            </div>
+            <div class="income-result">
+                <h3>Sizning oylik daromadingiz:</h3>
+                <div class="amount"><span id="monthlyIncome">600,000</span> so'm</div>
+                <p style="margin-top: 15px; opacity: 0.9;">≈ $<span id="monthlyIncomeUSD">600</span> USD</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="application-form" id="apply">
+        <h2>Ariza Qoldiring</h2>
+        <div class="form-container">
+            <form id="applicationForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Ism *</label>
+                        <input type="text" required placeholder="Ismingiz">
+                    </div>
+                    <div class="form-group">
+                        <label>Familiya *</label>
+                        <input type="text" required placeholder="Familiyangiz">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Telefon *</label>
+                        <input type="tel" required placeholder="+998 90 123 45 67">
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" required placeholder="email@example.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Shahar *</label>
+                    <select required>
+                        <option value="">Shaharni tanlang</option>
+                        <option value="tashkent">Toshkent</option>
+                        <option value="samarkand">Samarqand</option>
+                        <option value="bukhara">Buxoro</option>
+                        <option value="andijan">Andijon</option>
+                        <option value="namangan">Namangan</option>
+                        <option value="fergana">Farg'ona</option>
+                        <option value="other">Boshqa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Xona manzili</label>
+                    <input type="text" placeholder="To'liq manzilni kiriting">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Xona maydoni (m²)</label>
+                        <input type="number" placeholder="30">
+                    </div>
+                    <div class="form-group">
+                        <label>Boshlang'ich kapital (so'm)</label>
+                        <input type="text" placeholder="20,000,000">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Qo'shimcha ma'lumot</label>
+                    <textarea placeholder="Biznes tajribangiz, savollaringiz..."></textarea>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">Shartlarga va maxfiylik siyosatiga roziman</label>
+                </div>
+                <button type="submit" class="submit-btn">Ariza yuborish 📨</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Otkryt' Punkt Vydachi. Barcha huquqlar himoyalangan.</p>
+        <p style="margin-top: 10px;">📞 +998 94 056 12 32 | 📧 partner@punkty.uz</p>
+        <p style="margin-top: 5px;">Ish vaqti: Dushanba-Juma, 09:00-18:00</p>
+    </footer>
+
+    <script>
+        function handleExit() {
+            if (confirm('Saytdan chiqmoqchimisiz?')) {
+                window.close();
+                window.location.href = 'about:blank';
+            }
+        }
+
+        const ordersSlider = document.getElementById('ordersSlider');
+        const feeSlider = document.getElementById('feeSlider');
+        const ordersValue = document.getElementById('ordersValue');
+        const feeValue = document.getElementById('feeValue');
+        const monthlyIncome = document.getElementById('monthlyIncome');
+        const monthlyIncomeUSD = document.getElementById('monthlyIncomeUSD');
+
+        function calculateIncome() {
+            const orders = parseInt(ordersSlider.value);
+            const fee = parseInt(feeSlider.value);
+            const daily = orders * fee;
+            const monthly = daily * 30;
+            const usd = Math.round(monthly / 1000);
+
+            ordersValue.textContent = orders;
+            feeValue.textContent = fee;
+            monthlyIncome.textContent = monthly.toLocaleString();
+            monthlyIncomeUSD.textContent = usd;
+        }
+
+        ordersSlider.addEventListener('input', calculateIncome);
+        feeSlider.addEventListener('input', calculateIncome);
+
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = this.querySelector('input[type="text"]').value;
+            
+            alert('Rahmat, ' + name + '!\n\nSizning arizangiz muvaffaqiyatli qabul qilindi.\n\nBizning menejer 24 soat ichida siz bilan bog\'lanadi va batafsil ma\'lumot beradi.');
+            
+            this.reset();
+        });
+    </script>
+</body>
+</html>

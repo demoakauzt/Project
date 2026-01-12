@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zamon market</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f4f4f5;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: #fff;
+            border-bottom: 1px solid #e5e5ea;
+            padding: 8px 0;
+            font-size: 13px;
+        }
+
+        .top-bar-content {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #141415;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .top-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .top-links a {
+            color: #141415;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .top-links a:hover {
+            color: #7000FF;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            padding: 16px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #7000FF 0%, #B066FF 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #7000FF 0%, #B066FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .catalog-btn {
+            background: #F5F5F7;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 11px 45px 11px 16px;
+            border: 1px solid #E5E5EA;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #F5F5F7;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            background: #fff;
+            border-color: #7000FF;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 22px;
+            position: relative;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background: #FF3B30;
+            color: white;
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        .navigation {
+            background: #fff;
+            border-bottom: 1px solid #E5E5EA;
+            padding: 12px 0;
+        }
+
+        .nav-content {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 32px;
+            overflow-x: auto;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #141415;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .nav-item:hover {
+            color: #7000FF;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Banner */
+        .banner {
+            margin-bottom: 24px;
+            border-radius: 16px;
+            overflow: hidden;
+            height: 400px;
+            background: linear-gradient(135deg, #5B13D4 0%, #7000FF 100%);
+            display: flex;
+            align-items: center;
+            padding: 60px;
+            color: white;
+            position: relative;
+        }
+
+        .banner-text h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .banner-price {
+            background: white;
+            color: #7000FF;
+            padding: 16px 28px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 48px;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .banner-subtitle {
+            font-size: 22px;
+        }
+
+        /* Category Pills */
+        .category-pills {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            overflow-x: auto;
+        }
+
+        .category-pill {
+            background: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: all 0.2s;
+        }
+
+        .category-pill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Products */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #141415;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .product-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background: #F8F8F8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image-wrapper img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: #7000FF;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .favorite-icon {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+
+        .favorite-icon.active {
+            background: #FF3B30;
+            color: white;
+        }
+
+        .product-info {
+            padding: 12px;
+        }
+
+        .product-price-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        .current-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #141415;
+        }
+
+        .rating-badge {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 11px;
+            color: #8E8E93;
+        }
+
+        .discount-badge {
+            background: #FFF3E6;
+            color: #FF9500;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .old-price {
+            font-size: 13px;
+            color: #8E8E93;
+            text-decoration: line-through;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 13px;
+            color: #141415;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 36px;
+        }
+
+        .buy-btn {
+            width: 100%;
+            background: #7000FF;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .buy-btn:hover {
+            background: #5a00cc;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #8E8E93;
+        }
+
+        .no-results-icon {
+            font-size: 70px;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        /* Product Container */
+        .product-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            padding: 20px;
+            max-width: 1320px;
+            margin: 0 auto;
+        }
+
+        .product-item {
+            text-align: center;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 10px;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        .product-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .product-item img {
+            width: 100%;
+            height: auto;
+            max-width: 200px;
+            margin-bottom: 10px;
+        }
+
+        .product-item p {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #141415;
+        }
+
+        .product-item span {
+            font-weight: bold;
+            color: #7000FF;
+            font-size: 16px;
+        }
+
+        /* Cart Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid #E5E5EA;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #8E8E93;
+        }
+
+        .cart-items {
+            padding: 24px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid #F5F5F7;
+        }
+
+        .cart-item-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            background: #F8F8F8;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .cart-item-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #7000FF;
+            margin-bottom: 8px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #E5E5EA;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .quantity {
+            font-weight: 600;
+            min-width: 25px;
+            text-align: center;
+        }
+
+        .cart-footer {
+            padding: 24px;
+            border-top: 1px solid #E5E5EA;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: #7000FF;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-cart-icon {
+            font-size: 70px;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+            
+            .banner {
+                height: 250px;
+                padding: 30px 20px;
+            }
+            
+            .banner-text h1 {
+                font-size: 32px;
+            }
+
+            .product-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="location">📍 Tashkent ▼</div>
+            <div class="top-links">
+                <a href="./Punkty vydachi.html">Punkty vydachi</a>
+                <a href="./Stat' prodavcom.html">Stat' prodavcom</a>
+                <a href="./Otkryt' punkt vydachi.html">Otkryt' punkt vydachi</a>
+                <a href="./Vopros-otvet.html">Vopros-otvet</a>
+                <a href="./Moi zakazy.html">Moi zakazy</a>
+                <span>🇷🇺 Russkiy</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">Z</div>
+                <span class="logo-text">zamon market</span>
+            </div>
+            <button class="catalog-btn">📑 Katalog</button>
+
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Iskat' tovary i kategorii" onkeyup="searchProducts()">
+                <button class="search-btn" onclick="searchProducts()">🔍</button>
+            </div>
+
+            <div class="header-icons">
+                <button class="icon-btn">👤</button>
+                <button class="icon-btn">❤️</button>
+                <button class="icon-btn" onclick="toggleCart()">
+                    🛒
+                    <span class="cart-badge" id="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="nav-content">
+            <a href="./Tovary nedeli.html" class="nav-item" onclick="filterByCategory('all'); return false;"><span>🔥</span> Tovary nedeli</a>
+            <a href="./Zimnyaya kollekciya.html" class="nav-item" onclick="filterByCategory('zimnyaya'); return false;"><span>❄️</span> Zimnyaya kollekciya</a>
+            <a href="./Vasha krasot.html" class="nav-item" onclick="filterByCategory('krasota'); return false;"><span>💐</span> Vasha krasota</a>
+            <a href="./Xobbi i tvorchestvo.html" class="nav-item" onclick="filterByCategory('xobbi'); return false;"><span>🎨</span> Xobbi i tvorchestvo</a>
+            <a href="./Smartfony.html" class="nav-item" onclick="filterByCategory('smartfony'); return false;"><span>📱</span> Smartfony</a>
+        </div>
+    </nav>
+
+    <!-- Container -->
+    <div class="container">
+        <!-- Banner -->
+        <div class="banner">
+            <div class="banner-text">
+                <h1>PODARKI<br>MUZHCHINAM</h1>
+                <div class="banner-price">39 053 <span style="font-size:20px">so'm</span></div>
+                <div class="banner-subtitle">Muzhskoj nabor chasov</div>
+            </div>
+        </div>
+
+        <!-- Category Pills -->
+        <div class="category-pills">
+            <button class="category-pill" onclick="filterByCategory('all')"><a href="./🏠 Vse.html">🏠 Vse</a></button>
+            <button class="category-pill" onclick="filterByCategory('detskij')"><a href="./🧸 Detskij mir.html">🧸 Detskij mir</a></button>
+            <button class="category-pill" onclick="filterByCategory('krasota')"><a href="./💐 Vasha krasota.html">💐 Vasha krasota</a></button>
+            <button class="category-pill" onclick="filterByCategory('smartfony')"><a href="./📱 Smartfony.html">📱 Smartfony</a></button>
+            <button class="category-pill" onclick="filterByCategory('kiyim')"><a href="./👕 Kiyimlar.html">👕 Kiyimlar</a></button>
+        </div>
+
+        <!-- Products -->
+        <div class="section-header">
+            <h2 class="section-title" id="section-title">Populyarnoe</h2>
+        </div>
+        <div class="product-grid" id="product-grid"></div>
+        <div id="no-results" style="display:none" class="no-results">
+            <div class="no-results-icon">🔍</div>
+            <h3>Mahsulot topilmadi</h3>
+            <p>Boshqa kalit so'zlar bilan qidiring</p>
+        </div>
+    </div>
+
+    <!-- Static Product Container -->
+    <div class="product-container">
+        <div class="product-item">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200" alt="Adidas">
+            <p>Adidas Sport</p>
+            <span>$10.00</span>
+        </div>
+        <div class="product-item">
+            <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=200" alt="Adidas">
+            <p>Adidas Kurtka</p>
+            <span>$12.00</span>
+        </div>
+        <div class="product-item">
+            <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=200" alt="Galaxy S23">
+            <p>Galaxy S23</p>
+            <span>$100.00</span>
+        </div>
+        <div class="product-item">
+            <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=200" alt="Note 80">
+            <p>Note 80</p>
+            <span>$123.50</span>
+        </div>
+        <div class="product-item">
+            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200" alt="Phone">
+            <p>OPPO F5</p>
+            <span>$199.00</span>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal-overlay" id="cart-modal" onclick="if(event.target === this) toggleCart()">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Savat</h2>
+                <button class="close-btn" onclick="toggleCart()">×</button>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <div class="empty-cart">
+                    <div class="empty-cart-icon">🛒</div>
+                    <h3>Savat bo'sh</h3>
+                    <p>Mahsulotlar qo'shing</p>
+                </div>
+            </div>
+            <div class="cart-footer" id="cart-footer" style="display:none">
+                <div class="total-row">
+                    <span>Jami:</span>
+                    <span id="cart-total">0 so'm</span>
+                </div>
+                <button class="checkout-btn">To'lovga o'tish</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { id: 1, name: "Shampun' dlya volos Garnier Fructis SOS", price: 19752, oldPrice: 25990, rating: 4.8, reviews: 2847, discount: "25%", image: "🧴", badge: "ОРИГИНАЛ", category: "krasota", keywords: ["shampun", "volos", "garnier", "kosmetika", "krasota", "shampoo", "soch", "sampun"] },
+            { id: 2, name: "Bumaga listovaya dlya ofisnoj pechati", price: 48050, oldPrice: 73970, rating: 4.9, reviews: 1245, discount: "35%", image: "📄", badge: "ХИТ ЦЕНЫ", category: "ofis", keywords: ["bumaga", "ofis", "pechat", "qogoz", "paper"] },
+            { id: 3, name: "Podguzniki Huggies Elite Soft", price: 126073, oldPrice: 130900, rating: 5.0, reviews: 1579, discount: "4%", image: "👶", badge: "ОРИГИНАЛ", category: "detskij", keywords: ["podguzniki", "deti", "huggies", "rebenok", "bolalar", "chaqaloq"] },
+            { id: 4, name: "Tush' dlya resnic L'Oreal Paris Telescopic", price: 139491, oldPrice: 181980, rating: 4.8, reviews: 585, discount: "23%", image: "💄", badge: "ОРИГИНАЛ", category: "krasota", keywords: ["tush", "makiyaj", "loreal", "kosmetika", "resnici", "makeup", "makiyazh", "kirpik"] },
+            { id: 5, name: "Apple iPhone 15 Pro Max 256GB", price: 15999000, oldPrice: 18999000, rating: 4.9, reviews: 2341, discount: "16%", image: "📱", badge: "ОРИГИНАЛ", category: "smartfony", keywords: ["iphone", "apple", "telefon", "smartfon", "ajfon", "ayfon", "15", "pro", "max"] },
+            { id: 6, name: "Samsung Galaxy S24 Ultra 512GB", price: 13999000, oldPrice: 16499000, rating: 4.8, reviews: 1876, discount: "15%", image: "📱", badge: "ХИТ", category: "smartfony", keywords: ["samsung", "galaxy", "telefon", "smartfon", "s24", "ultra"] },
+            { id: 7, name: "Adidas Futbolka Sport", price: 299000, oldPrice: 399000, rating: 4.7, reviews: 234, discount: "25%", image: "👕", badge: "ХИТ", category: "kiyim", keywords: ["adidas", "futbolka", "sport", "kiyim", "odezhda", "mayka", "koylak"] },
+        ];
+
+        let allProducts = [...products];
+        let cart = [];
+        let favorites = new Set();
+
+        function renderProducts(productsToShow) {
+            const grid = document.getElementById('product-grid');
+            const noResults = document.getElementById('no-results');
+
+            if (productsToShow.length === 0) {
+                grid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            grid.style.display = 'grid';
+            noResults.style.display = 'none';
+
+            grid.innerHTML = productsToShow.map(p => `
+                <div class="product-card">
+                    <div class="product-image-wrapper">
+                        ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
+                        <button class="favorite-icon ${favorites.has(p.id) ? 'active' : ''}" onclick="toggleFav(${p.id})">
+                            ${favorites.has(p.id) ? '❤️' : '🤍'}
+                        </button>
+                        <div style="font-size: 80px;">${p.image}</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-price-row">
+                            <span class="current-price">${p.price.toLocaleString()} so'm</span>
+                            <span class="rating-badge">⭐ ${p.rating}</span>
+                        </div>
+                        <div class="old-price">${p.oldPrice.toLocaleString()} so'm</div>
+                        <div style="margin-bottom:8px">
+                            <span class="discount-badge">${p.discount} SKIDKA</span>
+                        </div>
+                        <div class="product-name">${p.name}</div>
+                        <button class="buy-btn" onclick="addCart(${p.id})">🛒 Xarid qilish</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function searchProducts() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
+
+            if (searchTerm === '') {
+                renderProducts(allProducts);
+                document.getElementById('section-title').textContent = 'Populyarnoe';
+                return;
+            }
+
+            const filtered = allProducts.filter(p => 
+                return1 .name.toLowerCase().includes(search))}
+                    
+                </script>
+</body>
+</html>

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punkty Vydachi - Olib ketish punktlari</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .exit-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .exit-btn:hover {
+            background: white;
+            color: #2c3e50;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .search-section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #2c3e50;
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: opacity 0.3s;
+        }
+
+        .search-btn:hover {
+            opacity: 0.9;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #2c3e50;
+            color: white;
+            border-color: #2c3e50;
+        }
+
+        .points-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .points-section h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .points-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .point-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .point-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(44, 62, 80, 0.2);
+        }
+
+        .point-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: white;
+        }
+
+        .point-header h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .point-status {
+            display: inline-block;
+            background: rgba(255,255,255,0.3);
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+
+        .point-status.open {
+            background: #26de81;
+        }
+
+        .point-status.closed {
+            background: #ff4757;
+        }
+
+        .point-body {
+            padding: 25px;
+        }
+
+        .point-info {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .point-icon {
+            font-size: 20px;
+            min-width: 25px;
+        }
+
+        .point-text {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .point-schedule {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .schedule-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 14px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .map-btn, .directions-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .map-btn {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+        }
+
+        .directions-btn {
+            background: white;
+            border: 2px solid #2c3e50;
+            color: #2c3e50;
+        }
+
+        .map-btn:hover, .directions-btn:hover {
+            opacity: 0.8;
+        }
+
+        .stats-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .stat-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 16px;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 80px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">📦 Punkty Vydachi</a>
+            <div class="nav-links">
+                <a href="#home">Bosh sahifa</a>
+                <a href="#points">Punktlar</a>
+                <a href="#track">Kuzatish</a>
+                <a href="#contact">Aloqa</a>
+                <button class="exit-btn" onclick="handleExit()"><a href="./index.html">🚪 Chiqish</a></button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Olib Ketish Punktlari</h1>
+        <p>Sizga yaqin punktni toping va buyurtmani qulay vaqtda olib keting</p>
+    </div>
+
+    <div class="search-section">
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="Manzil, metro yoki tumanni kiriting...">
+            <button class="search-btn">🔍 Qidirish</button>
+        </div>
+        <div class="filter-buttons">
+            <button class="filter-btn active">Hammasi</button>
+            <button class="filter-btn">Hozir ochiq</button>
+            <button class="filter-btn">24/7</button>
+            <button class="filter-btn">Metro yaqinida</button>
+            <button class="filter-btn">Avto to'xtash joyi bor</button>
+        </div>
+    </div>
+
+    <div class="points-section" id="points">
+        <h2>Punktlarimiz</h2>
+        <div class="points-grid">
+            <div class="point-card">
+                <div class="point-header">
+                    <h3>Punkt №1 - Chilonzor</h3>
+                    <span class="point-status open">Ochiq</span>
+                </div>
+                <div class="point-body">
+                    <div class="point-info">
+                        <span class="point-icon">📍</span>
+                        <span class="point-text">Chilonzor tumani, Bunyodkor ko'chasi, 12-uy</span>
+                    </div>
+                    <div class="point-info">
+                        <span class="point-icon">🚇</span>
+                        <span class="point-text">Chilonzor metro bekatidan 300m</span>
+                    </div>
+                    <div class="point-info">
+                        <span class="point-icon">🅿️</span>
+                        <span class="point-text">Bepul avto to'xtash joyi mavjud</span>
+                    </div>
+                    <div class="point-schedule">
+                        <div class="schedule-item">
+                            <span>Dushanba - Juma:</span>
+                            <strong>09:00 - 21:00</strong>
+                        </div>
+                        <div class="schedule-item">
+                            <span>Shanba - Yakshanba:</span>
+                            <strong>10:00 - 20:00</strong>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="map-btn">🗺️ Xaritada</button>
+                        <button class="directions-btn">🧭 Yo'nalish</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-card">
+                <div class="point-header">
+                    <h3>Punkt №2 - Yunusobod</h3>
+                    <span class="point-status open">Ochiq</span>
+                </div>
+                <div class="point-body">
+                    <div class="point-info">
+                        <span class="point-icon">📍</span>
+                        <span class="point-text">Yunusobod tumani, Abdulla Qodiriy ko'chasi, 25-uy</span>
+                    </div>
+                    <div class="point-info">
+                        <span class="point-icon">🚇</span>
+                        <span class="point-text">Yunusobod metro bekatidan 500m</span>
+                    </div>
+                    <div class="point-info">
+                        <span class="point-icon">⏰</span>
+                        <span class="point-text">24/7 ishlaydi</span>
+                    </div>
+                    <div class="point-schedule">
+                        <div class="schedule-item">
+                            <span>Har kuni:</span>
+                            <strong>24 soat</strong>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="map-btn">🗺️ Xaritada</button>
+                        <button class="directions-btn">🧭 Yo'nalish</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-card">
+                <div class="point-header">
+                    <h3>Punkt №3 - Sergeli</h3>
+                    <span class="point-status open">Ochiq</span>
+                </div>
+                <div class="point-body">
+                    <div class="point-info">
+                        <span class="point-icon">📍</span>
+                        <span class="point-text">Sergeli tumani, Yangi Sergeli ko'chasi, 8-uy</span>
+                    </div>
+                    <div class="point-info">
+                        <span class="point-icon">🚇</span>
+                        <span class="point-text">Sergeli metro bekatidan 200m</span>
+                    </div>
+                    <div class="point-info">
+                        <span class="point-icon">🅿️</span>
+                        <span class="point-text">Katta avto to'xtash joyi</span>
+                    </div>
+                    <div class="point-schedule">
+                        <div class="schedule-item">
+                            <span>Har kuni:</span>
+                            <strong>08:00 - 22:00</strong>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="map-btn">🗺️ Xaritada</button>
+                        <button class="directions-btn">🧭 Yo'nalish</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-card">
+                <div class="point-header">
+                    <h3>Punkt №4 - Mirzo Ulug'bek</h3>
+                    <span class="point-status closed">Yopiq</span>
+                </div>
+                <div class="point-body">
+                    <div class="point-info">
+                        <span class="point-icon">📍</span>
+                        <span class="point-text">Mirzo Ulug'bek tumani, Labzak ko'chasi, 45-uy</span>
+                    </div>
+                    <div class="point-info">
+                        <span class="point-icon">🚇</span>
+                        <span class="point-text">Milliy bog' metro bekatidan 700m</span>
+                    </div>
+                    <div class="point-info">
+                        <span class="point-icon">📞</span>
+                        <span class="point-text">+998 90 123 45 67</span>
+                    </div>
+                    <div class="point-schedule">
+                        <div class="schedule-item">
+                            <span>Dushanba - Juma:</span>
+                            <strong>09:00 - 20:00</strong>
+                        </div>
+                        <div class="schedule-item">
+                            <span>Shanba:</span>
+                            <strong>10:00 - 18:00</strong>
+                        </div>
+                        <div class="schedule-item">
+                            <span>Yakshanba:</span>
+                            <strong>Dam olish</strong>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="map-btn">🗺️ Xaritada</button>
+                        <button class="directions-btn">🧭 Yo'nalish</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-card">
+                <div class="point-header">
+                    <h3>Punkt №5 - Uchtepa</h3>
+                    <span class="point-status open">Ochiq</span>
+                </div>
+                <div class="point-body">
+                    <div class="point-info">
+                        <span class="point-icon">📍</span>
+                        <span class="point-text">Uchtepa tumani, Farobiy ko'chasi, 33-uy</span>
+                    </div>
+                    <div class="point-info">
+                        <span class="point-icon">🚇</span>
+                        <span class="point-text">Uchtepa metro bekatidan 400m</span>
+                    </div>
+                    <div class="point-info">
+                        <span class="point-icon">🅿️</span>
+                        <span class="point-text">Avto to'xtash joyi bor</span>
+                    </div>
+                    <div class="point-schedule">
+                        <div class="schedule-item">
+                            <span>Har kuni:</span>
+                            <strong>09:00 - 21:00</strong>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="map-btn">🗺️ Xaritada</button>
+                        <button class="directions-btn">🧭 Yo'nalish</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="point-card">
+                <div class="point-header">
+                    <h3>Punkt №6 - Bektemir</h3>
+                    <span class="point-status open">Ochiq</span>
+                </div>
+                <div class="point-body">
+                    <div class="point-info">
+                        <span class="point-icon">📍</span>
+                        <span class="point-text">Bektemir tumani, Qatortol ko'chasi, 18-uy</span>
+                    </div>
+                    <div class="point-info">
+                        <span class="point-icon">🚌</span>
+                        <span class="point-text">Avtobus bekatidan 100m</span>
+                    </div>
+                    <div class="point-info">
+                        <span class="point-icon">📦</span>
+                        <span class="point-text">Katta yuklar uchun</span>
+                    </div>
+                    <div class="point-schedule">
+                        <div class="schedule-item">
+                            <span>Dushanba - Shanba:</span>
+                            <strong>08:00 - 20:00</strong>
+                        </div>
+                        <div class="schedule-item">
+                            <span>Yakshanba:</span>
+                            <strong>Dam olish</strong>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="map-btn">🗺️ Xaritada</button>
+                        <button class="directions-btn">🧭 Yo'nalish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📍</div>
+                <div class="stat-number">25+</div>
+                <div class="stat-label">Punktlar soni</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📦</div>
+                <div class="stat-number">10,000+</div>
+                <div class="stat-label">Kunlik buyurtmalar</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-number">4.9</div>
+                <div class="stat-label">Mijozlar bahosi</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-number">15 min</div>
+                <div class="stat-label">O'rtacha kutish vaqti</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Punkty Vydachi. Barcha huquqlar himoyalangan.</p>
+        <p style="margin-top: 10px;">📞 +998 94 056 12 32 | 📧 info@punkty.uz</p>
+        <p style="margin-top: 5px;">Ish vaqti: 24/7 qo'llab-quvvatlash</p>
+    </footer>
+
+    <script>
+        function handleExit() {
+            if (confirm('Saytdan chiqmoqchimisiz?')) {
+                window.close();
+                window.location.href = 'about:blank';
+            }
+        }
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.map-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const pointName = this.closest('.point-card').querySelector('h3').textContent;
+                alert('Xaritada ' + pointName + ' ochilmoqda...');
+            });
+        });
+
+        document.querySelectorAll('.directions-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const pointName = this.closest('.point-card').querySelector('h3').textContent;
+                alert(pointName + ' ga yo\'nalish ko\'rsatilmoqda...');
+            });
+        });
+
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const searchValue = document.querySelector('.search-input').value;
+            if (searchValue) {
+                alert('Qidirilmoqda: ' + searchValue);
+            } else {
+                alert('Iltimos, manzil yoki tumanni kiriting');
+            }
+        });
+    </script>
+</body>
+</html>

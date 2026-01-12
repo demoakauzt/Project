@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vasha Krasota - Go'zallik Dunyosi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .exit-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .exit-btn:hover {
+            background: white;
+            color: #ff6b9d;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .categories {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .categories h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.3);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+        }
+
+        .category-info {
+            padding: 25px;
+        }
+
+        .category-info h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .category-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .view-btn {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .view-btn:hover {
+            opacity: 0.9;
+        }
+
+        .products {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .products h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.03);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            position: relative;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff4757;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .new-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #26de81;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .product-details {
+            padding: 25px;
+        }
+
+        .product-details h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .price {
+            font-size: 26px;
+            font-weight: bold;
+            color: #ff6b9d;
+            margin-bottom: 15px;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        .rating {
+            margin-bottom: 15px;
+            color: #ffa502;
+        }
+
+        .buy-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: opacity 0.3s;
+        }
+
+        .buy-btn:hover {
+            opacity: 0.9;
+        }
+
+        .benefits {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .benefits h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-item {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .benefit-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .benefit-item h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .benefit-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 80px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">💐 Vasha Krasota</a>
+            <div class="nav-links">
+                <a href="#home">Bosh sahifa</a>
+                <a href="#categories">Kategoriyalar</a>
+                <a href="#products">Mahsulotlar</a>
+                <a href="#contact">Aloqa</a>
+                <button class="exit-btn" onclick="handleExit()"><a href="./index.html">🚪 Chiqish</a></button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Go'zallik Dunyosiga Xush Kelibsiz!</h1>
+        <p>Premium kosmetika va parvarish vositalari</p>
+    </div>
+
+    <div class="categories" id="categories">
+        <h2>Kategoriyalar</h2>
+        <div class="category-grid">
+            <div class="category-card">
+                <div class="category-image">💄</div>
+                <div class="category-info">
+                    <h3>Makiyaj</h3>
+                    <p>Pomada, tush, tonal krem va boshqalar</p>
+                    <button class="view-btn">Ko'rish</button>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-image">🧴</div>
+                <div class="category-info">
+                    <h3>Teri parvarishi</h3>
+                    <p>Krem, serum, maska va tozalovchilar</p>
+                    <button class="view-btn">Ko'rish</button>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-image">💅</div>
+                <div class="category-info">
+                    <h3>Manikür</h3>
+                    <p>Lak, gel-lak va tirnoq parvarishi</p>
+                    <button class="view-btn">Ko'rish</button>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-image">🌸</div>
+                <div class="category-info">
+                    <h3>Atirlar</h3>
+                    <p>Original parfyumeriya va duxlar</p>
+                    <button class="view-btn">Ko'rish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="products" id="products">
+        <h2>Ommabop Mahsulotlar</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-img">
+                    💄
+                    <span class="new-badge">YANGI</span>
+                </div>
+                <div class="product-details">
+                    <h3>Luxury Pomada Set</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ (4.9)</div>
+                    <div class="product-description">12 ta turli rang, uzoq davom etuvchi, gippoallergik</div>
+                    <div class="price">
+                        350,000 so'm
+                        <span class="old-price">450,000</span>
+                    </div>
+                    <button class="buy-btn">Xarid qilish</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    🧴
+                    <span class="discount-badge">-30%</span>
+                </div>
+                <div class="product-details">
+                    <h3>Hyaluronic Serum</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ (5.0)</div>
+                    <div class="product-description">Teriga namlik beruvchi, burmalar uchun, 30ml</div>
+                    <div class="price">
+                        280,000 so'm
+                        <span class="old-price">400,000</span>
+                    </div>
+                    <button class="buy-btn">Xarid qilish</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">💅</div>
+                <div class="product-details">
+                    <h3>Gel-Lak Premium Set</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ (4.8)</div>
+                    <div class="product-description">10 ta rang, UV lampa bilan, professional sifat</div>
+                    <div class="price">550,000 so'm</div>
+                    <button class="buy-btn">Xarid qilish</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    🌸
+                    <span class="new-badge">TOP</span>
+                </div>
+                <div class="product-details">
+                    <h3>Chanel No.5 Parfum</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ (5.0)</div>
+                    <div class="product-description">Original fransuz atiri, 100ml, uzoq davom etuvchi</div>
+                    <div class="price">1,800,000 so'm</div>
+                    <button class="buy-btn">Xarid qilish</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">🧴</div>
+                <div class="product-details">
+                    <h3>Vitamin C Face Cream</h3>
+                    <div class="rating">⭐⭐⭐⭐ (4.7)</div>
+                    <div class="product-description">Terini yorqinlashtiruvchi, kundalik foydalanish</div>
+                    <div class="price">320,000 so'm</div>
+                    <button class="buy-btn">Xarid qilish</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    💄
+                    <span class="discount-badge">-25%</span>
+                </div>
+                <div class="product-details">
+                    <h3>Professional Makeup Kit</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ (4.9)</div>
+                    <div class="product-description">To'liq makiyaj to'plami, 50+ mahsulot</div>
+                    <div class="price">
+                        900,000 so'm
+                        <span class="old-price">1,200,000</span>
+                    </div>
+                    <button class="buy-btn">Xarid qilish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="benefits">
+        <h2>Bizning Afzalliklarimiz</h2>
+        <div class="benefit-grid">
+            <div class="benefit-item">
+                <div class="benefit-icon">✅</div>
+                <h3>100% Original</h3>
+                <p>Faqat original va sertifikatlangan mahsulotlar</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🚚</div>
+                <h3>Bepul Yetkazib Berish</h3>
+                <p>500,000 so'mdan yuqori xaridlarda</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🎁</div>
+                <h3>Sovg'alar</h3>
+                <p>Har bir xaridga ajoyib bonuslar</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">💳</div>
+                <h3>Bo'lib To'lash</h3>
+                <p>3-6 oy muddatli to'lov imkoniyati</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Vasha Krasota. Barcha huquqlar himoyalangan.</p>
+        <p style="margin-top: 10px;">📞 +99894 056 12 32 | 📧 info@vashakrasota.uz</p>
+        <p style="margin-top: 5px;">📍 Toshkent, Amir Temur ko'chasi 108</p>
+    </footer>
+
+    <script>
+        function handleExit() {
+            if (confirm('Saytdan chiqmoqchimisiz?')) {
+                window.close();
+                window.location.href = 'about:blank';
+            }
+        }
+
+        document.querySelectorAll('.buy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productName = this.closest('.product-card').querySelector('h3').textContent;
+                this.textContent = '✓ Savatga qo\'shildi';
+                this.style.background = '#26de81';
+                
+                setTimeout(() => {
+                    if (confirm(productName + ' xarid qilmoqchimisiz?')) {
+                        alert('Rahmat! Sizning buyurtmangiz qabul qilindi. Tez orada siz bilan bog\'lanamiz!');
+                    }
+                    this.textContent = 'Xarid qilish';
+                    this.style.background = 'linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%)';
+                }, 1500);
+            });
+        });
+
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const categoryName = this.closest('.category-card').querySelector('h3').textContent;
+                alert(categoryName + ' kategoriyasidagi mahsulotlarni ko\'rmoqdasiz!');
+            });
+        });
+    </script>
+</body>
+</html>

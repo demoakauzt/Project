@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💐 Vasha krasota - Go'zallik Saloni</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            min-height: 100vh;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+            }
+        }
+
+        .top-bar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            margin-bottom: 20px;
+        }
+
+        .top-bar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar-logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logout-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.3);
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.5);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .logo-section {
+            background: rgba(255,255,255,0.95);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 3.5em;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.3em;
+            color: #555;
+            font-style: italic;
+        }
+
+        .cta-section {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 18px 40px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.3);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.5);
+        }
+
+        .cta-btn.secondary {
+            background: white;
+            color: #f5576c;
+            border: 3px solid #f5576c;
+        }
+
+        .cta-btn.secondary:hover {
+            background: #f5576c;
+            color: white;
+        }
+
+        .services-section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            text-align: center;
+            animation: fadeInUp 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(240, 147, 251, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .service-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .service-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .service-description {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .service-price {
+            font-size: 1.8em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .service-features {
+            text-align: left;
+            margin: 20px 0;
+            padding: 0 10px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        .feature-item::before {
+            content: '✓';
+            color: #f5576c;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .btn-book {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.05em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-book:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+        }
+
+        .gallery-section {
+            margin: 60px 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5em;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .testimonials-section {
+            margin: 60px 0;
+            padding: 50px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .testimonial {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-text {
+            font-size: 1.1em;
+            color: #333;
+            font-style: italic;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #f5576c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stars {
+            color: #ffd700;
+            font-size: 1.2em;
+        }
+
+        .contact-section {
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            margin: 60px 0;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+        }
+
+        .contact-icon {
+            font-size: 2.5em;
+        }
+
+        .contact-details h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .contact-details p {
+            color: #666;
+        }
+
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            z-index: 3000;
+            animation: slideIn 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo-section {
+                padding: 30px 20px;
+            }
+
+            .cta-section {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                width: 100%;
+            }
+
+            .top-bar-logo {
+                font-size: 1.2em;
+            }
+
+            .logout-btn {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="top-bar-logo">💐 Vasha krasota</div>
+            <a href="./index.html" class="logout-btn" onclick="logout()">Chiqish 🚪</a>
+        </div>
+    </div>
+
+    <div class="floating-shapes">
+        <div class="shape" style="font-size: 100px;">💐</div>
+        <div class="shape" style="font-size: 80px;">✨</div>
+        <div class="shape" style="font-size: 90px;">💅</div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo-section">
+                <h1>💐 Vasha krasota</h1>
+                <p class="tagline">Sizning go'zalligingiz - bizning san'atimiz</p>
+            </div>
+            
+            <div class="cta-section">
+                <button class="cta-btn" onclick="bookNow()">📅 Band qilish</button>
+                <button class="cta-btn secondary" onclick="callUs()">📞 Qo'ng'iroq qilish</button>
+            </div>
+        </header>
+
+        <section class="services-section">
+            <h2 class="section-title">Bizning Xizmatlar</h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="service-icon">💇‍♀️</span>
+                    <h3 class="service-title">Soch Turmaklash</h3>
+                    <p class="service-description">Professional stilistlar tomonidan zamonaviy soch turmash va ranglash xizmatlari</p>
+                    <div class="service-features">
+                        <div class="feature-item">Kesish va styling</div>
+                        <div class="feature-item">Ranglash va ombre</div>
+                        <div class="feature-item">Keratin davolanishi</div>
+                        <div class="feature-item">Premium mahsulotlar</div>
+                    </div>
+                    <div class="service-price">150,000 so'mdan</div>
+                    <button class="btn-book" onclick="bookService('Soch Turmaklash')">Yozilish</button>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">💅</span>
+                    <h3 class="service-title">Manikyur & Pedikyur</h3>
+                    <p class="service-description">Klassik va zamonaviy dizaynlar, gel-lak qoplama va tirnoq kengaytirish</p>
+                    <div class="service-features">
+                        <div class="feature-item">Klassik manikyur</div>
+                        <div class="feature-item">Gel-lak qoplama</div>
+                        <div class="feature-item">Nail art dizayn</div>
+                        <div class="feature-item">SPA pedikyur</div>
+                    </div>
+                    <div class="service-price">80,000 so'mdan</div>
+                    <button class="btn-book" onclick="bookService('Manikyur & Pedikyur')">Yozilish</button>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">🧖‍♀️</span>
+                    <h3 class="service-title">Kosmetologiya</h3>
+                    <p class="service-description">Yuqori sifatli kosmetik protseduralar va yuz parvarishi</p>
+                    <div class="service-features">
+                        <div class="feature-item">Tozalash va peeling</div>
+                        <div class="feature-item">Anti-age terapiya</div>
+                        <div class="feature-item">Mezoterapiya</div>
+                        <div class="feature-item">Massaj va maskalar</div>
+                    </div>
+                    <div class="service-price">200,000 so'mdan</div>
+                    <button class="btn-book" onclick="bookService('Kosmetologiya')">Yozilish</button>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">👁️</span>
+                    <h3 class="service-title">Kiprik & Qosh</h3>
+                    <p class="service-description">Kiprik kengaytirish, laminatsiya va qosh dizayni</p>
+                    <div class="service-features">
+                        <div class="feature-item">Kiprik kengaytirish</div>
+                        <div class="feature-item">Kiprik laminatsiya</div>
+                        <div class="feature-item">Qosh ko'tarish</div>
+                        <div class="feature-item">Permanent makiyaj</div>
+                    </div>
+                    <div class="service-price">120,000 so'mdan</div>
+                    <button class="btn-book" onclick="bookService('Kiprik & Qosh')">Yozilish</button>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">💆‍♀️</span>
+                    <h3 class="service-title">Massaj & SPA</h3>
+                    <p class="service-description">Dam olish va relaksatsiya uchun professional massaj xizmatlari</p>
+                    <div class="service-features">
+                        <div class="feature-item">Klassik massaj</div>
+                        <div class="feature-item">Anti-cellulite</div>
+                        <div class="feature-item">Aromatherapiya</div>
+                        <div class="feature-item">Hot stone massaj</div>
+                    </div>
+                    <div class="service-price">180,000 so'mdan</div>
+                    <button class="btn-book" onclick="bookService('Massaj & SPA')">Yozilish</button>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-icon">💄</span>
+                    <h3 class="service-title">Makiyaj</h3>
+                    <p class="service-description">Har qanday tadbir uchun professional makiyaj xizmatlari</p>
+                    <div class="service-features">
+                        <div class="feature-item">Kundalik makiyaj</div>
+                        <div class="feature-item">Kechki makiyaj</div>
+                        <div class="feature-item">To'y makiyaji</div>
+                        <div class="feature-item">Premium kosmetika</div>
+                    </div>
+                    <div class="service-price">100,000 so'mdan</div>
+                    <button class="btn-book" onclick="bookService('Makiyaj')">Yozilish</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <h2 class="section-title">Bizning Ishlar</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">💇‍♀️</div>
+                <div class="gallery-item">💅</div>
+                <div class="gallery-item">✨</div>
+                <div class="gallery-item">💄</div>
+                <div class="gallery-item">👁️</div>
+                <div class="gallery-item">🌸</div>
+            </div>
+        </section>
+
+        <section class="testimonials-section">
+            <h2 class="section-title">Mijozlarimiz Fikrlari</h2>
+            
+            <div class="testimonial">
+                <p class="testimonial-text">"Ajoyib salon! Mutaxassislar juda professional va do'stona. Har safar bu yerga kelganimdan mamnun bo'lib ketaman. Natijalar hayratlanarli!"</p>
+                <div class="testimonial-author">
+                    <span>👩 Malika Karimova</span>
+                    <span class="stars">⭐⭐⭐⭐⭐</span>
+                </div>
+            </div>
+
+            <div class="testimonial">
+                <p class="testimonial-text">"Eng yaxshi go'zallik saloni! Xizmat sifati yuqori darajada, narxlar ham adekvat. To'y makiyajim uchun bu yerga keldim va natija kutganidan ham yaxshi chiqdi!"</p>
+                <div class="testimonial-author">
+                    <span>👩 Nodira Alimova</span>
+                    <span class="stars">⭐⭐⭐⭐⭐</span>
+                </div>
+            </div>
+
+            <div class="testimonial">
+                <p class="testimonial-text">"Men bu salonda doimiy mijozman. Mutaxassislar har doim yangi trendlardan xabardor va har safar nimadur yangi taklif qilishadi. Juda yoqadi!"</p>
+                <div class="testimonial-author">
+                    <span>👩 Dilnoza Raxmonova</span>
+                    <span class="stars">⭐⭐⭐⭐⭐</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <h2 class="section-title">Bog'lanish</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <div class="contact-details">
+                        <h4>Manzil</h4>
+                        <p>Toshkent sh., Chilonzor tumani<br>Bunyodkor ko'chasi, 12-uy</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <div class="contact-details">
+                        <h4>Telefon</h4>
+                        <p>+998  20 034 77 56<br>+998 94 056 12 32</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-icon">🕐</span>
+                    <div class="contact-details">
+                        <h4>Ish vaqti</h4>
+                        <p>Dushanba - Yakshanba<br>09:00 - 21:00</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-icon">📱</span>
+                    <div class="contact-details">
+                        <h4>Ijtimoiy tarmoqlar</h4>
+                        <p>Instagram: @vashakrasota<br>Telegram: @vashakrasota_uz</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function bookService(serviceName) {
+            alert(`✅ ${serviceName} xizmatiga yozilish uchun so'rov yuborildi!\n\n📞 Tez orada operatorlarimiz siz bilan bog'lanadi.\n⏰ Band qilish: +998 90 123 45 67\n\n💐 Vasha krasota - Sizning go'zalligingiz!`);
+        }
+
+        function bookNow() {
+            alert(`📅 Band qilish uchun:\n\n📞 Tel: +998 94 056 12 32 \n📱 Telegram: @vashakrasota_uz\n📍 Manzil: Chilonzor, Bunyodkor ko'chasi, 12\n\n⏰ Ish vaqti: 09:00 - 21:00\n\nBiz sizni kutamiz! 💐`);
+        }
+
+        function callUs() {
+            alert(`📞 Qo'ng'iroq qiling:\n\n+998 94 056 12 32\n+998 20 034 77 56 \n\nYoki Telegram orqali yozing:\n@vashakrasota_uz\n\nBiz har doim aloqadamiz! 💐`);
+        }
+
+        function logout() {
+            if (confirm('Rostdan ham tizimdan chiqmoqchimisiz?')) {
+                showNotification('Tizimdan muvaffaqiyatli chiqdingiz! 👋');
+                setTimeout(() => {
+                    alert('Yana ko\'rishguncha! Sizni kutib qolamiz 💐');
+                }, 500);
+            }
+        }
+
+        function showNotification(message) {
+            const notif = document.createElement('div');
+            notif.className = 'notification';
+            notif.textContent = message;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 2500);
+        }
+
+        // Animatsiya uchun scroll event
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .testimonial').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

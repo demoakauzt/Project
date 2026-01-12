@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FashionHub - Zamonaviy Kiyimlar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .exit-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .exit-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .categories {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .categories h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        .category-info {
+            padding: 25px;
+        }
+
+        .category-info h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .category-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .view-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .view-btn:hover {
+            opacity: 0.9;
+        }
+
+        .products {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .products h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+
+        .product-details {
+            padding: 20px;
+        }
+
+        .product-details h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .add-cart-btn {
+            width: 100%;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .add-cart-btn:hover {
+            background: #764ba2;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 80px;
+        }
+        .a{
+left: 1000px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">👕 FashionHub</a>
+            <div class="nav-links">
+                <a href="#home">Bosh sahifa</a>
+                <a href="#categories">Kategoriyalar</a>
+                <a href="#products">Mahsulotlar</a>
+                <a href="#contact">Aloqa</a>
+
+                <a href="./index.html">🚪 Chiqish</a>
+            </div>
+        </nav>
+    </header>
+    <div class="dim">
+    </div>
+                
+    <div class="hero">
+        <h1>Zamonaviy Kiyimlar Dunyosiga Xush Kelibsiz!</h1>
+        <p>Eng so'nggi moda tendensiyalari va yuqori sifatli kiyimlar</p>
+    </div>
+
+    <div class="categories" id="categories">
+        <h2>Kategoriyalar</h2>
+        <div class="category-grid">
+            <div class="category-card">
+                <div class="category-image">👔</div>
+                <div class="category-info">
+                    <h3>Erkaklar uchun</h3>
+                    <p>Klassik va zamonaviy erkaklar kiyimlari</p>
+                    <button class="view-btn">Ko'rish</button>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-image">👗</div>
+                <div class="category-info">
+                    <h3>Ayollar uchun</h3>
+                    <p>Nafis va zamonaviy ayollar kiyimlari</p>
+                    <button class="view-btn">Ko'rish</button>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-image">👶</div>
+                <div class="category-info">
+                    <h3>Bolalar uchun</h3>
+                    <p>Qulay va chiroyli bolalar kiyimlari</p>
+                    <button class="view-btn">Ko'rish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="products" id="products">
+        <h2>Ommabop Mahsulotlar</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-img">👕</div>
+                <div class="product-details">
+                    <h4>Premium T-shirt</h4>
+                    <div class="price">150,000 so'm</div>
+                    <button class="add-cart-btn">Savatga qo'shish</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">👖</div>
+                <div class="product-details">
+                    <h4>Classic Jeans</h4>
+                    <div class="price">250,000 so'm</div>
+                    <button class="add-cart-btn">Savatga qo'shish</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">👚</div>
+                <div class="product-details">
+                    <h4>Elegant Blouse</h4>
+                    <div class="price">180,000 so'm</div>
+                    <button class="add-cart-btn">Savatga qo'shish</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">🧥</div>
+                <div class="product-details">
+                    <h4>Winter Jacket</h4>
+                    <div class="price">450,000 so'm</div>
+                    <button class="add-cart-btn">Savatga qo'shish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 FashionHub. Barcha huquqlar himoyalangan.</p>
+    </footer>
+
+    <script>
+        function handleExit() {
+            if (confirm('Saytdan chiqmoqchimisiz?')) {
+                window.close();
+                window.location.href = 'about:blank';
+            }
+        }
+
+        document.querySelectorAll('.add-cart-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.textContent = '✓ Qo\'shildi';
+                this.style.background = '#10b981';
+                setTimeout(() => {
+                    this.textContent = 'Savatga qo\'shish';
+                    this.style.background = '#667eea';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>

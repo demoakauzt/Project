@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore - Zamonaviy Smartfonlar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .exit-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .exit-btn:hover {
+            background: white;
+            color: #1e3c72;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .brands {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .brands h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .brand-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .brand-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .brand-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(30, 60, 114, 0.2);
+        }
+
+        .brand-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .products {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .products h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.03);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff4757;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .product-details {
+            padding: 25px;
+        }
+
+        .product-details h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .specs {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 15px;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        .buy-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: opacity 0.3s;
+        }
+
+        .buy-btn:hover {
+            opacity: 0.9;
+        }
+
+        .features {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .feature-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .feature-item h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .feature-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 80px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">📱 TechStore</a>
+            <div class="nav-links">
+                <a href="#home">Bosh sahifa</a>
+                <a href="#brands">Brendlar</a>
+                <a href="#products">Smartfonlar</a>
+                <a href="#contact">Aloqa</a>
+                <button class="exit-btn" onclick="handleExit()"><a href="./index.html">🚪 Chiqish</a></button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Eng So'nggi Smartfonlar!</h1>
+        <p>Premium sifat va arzon narxlarda</p>
+    </div>
+
+    <div class="brands" id="brands">
+        <h2>Mashhur Brendlar</h2>
+        <div class="brand-grid">
+            <div class="brand-card">
+                <div class="brand-icon">🍎</div>
+                <div class="brand-name">Apple</div>
+            </div>
+            <div class="brand-card">
+                <div class="brand-icon">📱</div>
+                <div class="brand-name">Samsung</div>
+            </div>
+            <div class="brand-card">
+                <div class="brand-icon">🔷</div>
+                <div class="brand-name">Xiaomi</div>
+            </div>
+            <div class="brand-card">
+                <div class="brand-icon">⚡</div>
+                <div class="brand-name">Realme</div>
+            </div>
+            <div class="brand-card">
+                <div class="brand-icon">🌟</div>
+                <div class="brand-name">Oppo</div>
+            </div>
+            <div class="brand-card">
+                <div class="brand-icon">🎯</div>
+                <div class="brand-name">Vivo</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="products" id="products">
+        <h2>Ommabop Smartfonlar</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-img">
+                    📱
+                    <span class="badge">YANGI</span>
+                </div>
+                <div class="product-details">
+                    <h3>iPhone 15 Pro Max</h3>
+                    <div class="specs">
+                        • 6.7" Super Retina XDR<br>
+                        • A17 Pro chip<br>
+                        • 256GB xotira<br>
+                        • 48MP kamera
+                    </div>
+                    <div class="price">
+                        15,500,000 so'm
+                        <span class="old-price">17,000,000</span>
+                    </div>
+                    <button class="buy-btn">Xarid qilish</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">📱</div>
+                <div class="product-details">
+                    <h3>Samsung Galaxy S24 Ultra</h3>
+                    <div class="specs">
+                        • 6.8" Dynamic AMOLED<br>
+                        • Snapdragon 8 Gen 3<br>
+                        • 512GB xotira<br>
+                        • 200MP kamera
+                    </div>
+                    <div class="price">13,900,000 so'm</div>
+                    <button class="buy-btn">Xarid qilish</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    📱
+                    <span class="badge">CHEGIRMA</span>
+                </div>
+                <div class="product-details">
+                    <h3>Xiaomi 14 Pro</h3>
+                    <div class="specs">
+                        • 6.73" AMOLED<br>
+                        • Snapdragon 8 Gen 3<br>
+                        • 256GB xotira<br>
+                        • 50MP kamera
+                    </div>
+                    <div class="price">
+                        8,500,000 so'm
+                        <span class="old-price">9,500,000</span>
+                    </div>
+                    <button class="buy-btn">Xarid qilish</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">📱</div>
+                <div class="product-details">
+                    <h3>Realme GT 5 Pro</h3>
+                    <div class="specs">
+                        • 6.7" AMOLED 144Hz<br>
+                        • Snapdragon 8 Gen 3<br>
+                        • 256GB xotira<br>
+                        • 50MP kamera
+                    </div>
+                    <div class="price">6,200,000 so'm</div>
+                    <button class="buy-btn">Xarid qilish</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">📱</div>
+                <div class="product-details">
+                    <h3>Oppo Find X7 Ultra</h3>
+                    <div class="specs">
+                        • 6.82" AMOLED<br>
+                        • Snapdragon 8 Gen 3<br>
+                        • 512GB xotira<br>
+                        • 50MP quad kamera
+                    </div>
+                    <div class="price">11,800,000 so'm</div>
+                    <button class="buy-btn">Xarid qilish</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">
+                    📱
+                    <span class="badge">TOP</span>
+                </div>
+                <div class="product-details">
+                    <h3>Vivo X100 Pro</h3>
+                    <div class="specs">
+                        • 6.78" AMOLED 120Hz<br>
+                        • Dimensity 9300<br>
+                        • 256GB xotira<br>
+                        • 50MP ZEISS kamera
+                    </div>
+                    <div class="price">10,500,000 so'm</div>
+                    <button class="buy-btn">Xarid qilish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="features">
+        <h2 style="text-align: center; font-size: 36px; margin-bottom: 20px;">Nima uchun biz?</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <div class="feature-icon">✅</div>
+                <h3>Kafolat</h3>
+                <p>Barcha mahsulotlarga 1 yillik rasmiy kafolat</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🚚</div>
+                <h3>Yetkazib berish</h3>
+                <p>O'zbekiston bo'ylab bepul yetkazib berish</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">💳</div>
+                <h3>Bo'lib to'lash</h3>
+                <p>6-12 oy muddatli to'lov imkoniyati</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🎁</div>
+                <h3>Sovg'alar</h3>
+                <p>Har bir xaridga qo'shimcha aksessuarlar</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 TechStore. Barcha huquqlar himoyalangan.</p>
+        <p style="margin-top: 10px;">☎️ Aloqa: +998 90 123 45 67 | 📧 info@techstore.uz</p>
+    </footer>
+
+    <script>
+        function handleExit() {
+            if (confirm('Saytdan chiqmoqchimisiz?')) {
+                window.close();
+                window.location.href = 'about:blank';
+            }
+        }
+
+        document.querySelectorAll('.buy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productName = this.closest('.product-card').querySelector('h3').textContent;
+                this.textContent = '✓ Savatga qo\'shildi';
+                this.style.background = '#10b981';
+                
+                setTimeout(() => {
+                    if (confirm(productName + ' xarid qilmoqchimisiz?')) {
+                        alert('Rahmat! Operatorimiz tez orada siz bilan bog\'lanadi.');
+                    }
+                    this.textContent = 'Xarid qilish';
+                    this.style.background = 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)';
+                }, 1500);
+            });
+        });
+
+        document.querySelectorAll('.brand-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const brandName = this.querySelector('.brand-name').textContent;
+                alert(brandName + ' smartfonlarini ko\'rmoqdasiz!');
+            });
+        });
+    </script>
+</body>
+</html>

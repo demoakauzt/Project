@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vopros-Otvet - Tez-tez so'raladigan savollar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #fc5c7d 0%, #6a82fb 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .exit-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .exit-btn:hover {
+            background: white;
+            color: #fc5c7d;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fc5c7d 0%, #6a82fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 50px 18px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #6a82fb;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: #999;
+        }
+
+        .categories {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .categories h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        .category-tab {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .category-tab:hover {
+            border-color: #6a82fb;
+            color: #6a82fb;
+        }
+
+        .category-tab.active {
+            background: linear-gradient(135deg, #fc5c7d 0%, #6a82fb 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .faq-section {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 8px 30px rgba(106, 130, 251, 0.15);
+        }
+
+        .faq-question {
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #f8f9fa;
+        }
+
+        .faq-icon {
+            font-size: 24px;
+            color: #6a82fb;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .faq-answer-content {
+            padding: 0 30px 25px;
+            color: #666;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .contact-section {
+            background: #f8f9fa;
+            padding: 80px 20px;
+            margin-top: 80px;
+        }
+
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-container h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .contact-container p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .contact-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .contact-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .contact-card p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, #fc5c7d 0%, #6a82fb 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .contact-btn:hover {
+            opacity: 0.9;
+        }
+
+        .stats {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 30px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #fc5c7d 0%, #6a82fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 16px;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 0;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">❓ Vopros-Otvet</a>
+            <div class="nav-links">
+                <a href="#home">Bosh sahifa</a>
+                <a href="#faq">Savollar</a>
+                <a href="#contact">Aloqa</a>
+                <a href="#help">Yordam</a>
+                <button class="exit-btn" onclick="handleExit()"><a href="./index.html">🚪 Chiqish</a></button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Tez-tez So'raladigan Savollar</h1>
+        <p>Sizga kerakli javobni toping yoki biz bilan bog'laning</p>
+        <div class="search-box">
+            <input type="text" class="search-input" id="searchInput" placeholder="Savolingizni kiriting...">
+            <span class="search-icon">🔍</span>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Savol-javoblar</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50K+</div>
+                <div class="stat-label">Yordamlar</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Qoniqish</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Qo'llab-quvvatlash</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="categories" id="faq">
+        <h2>Kategoriyalar</h2>
+        <div class="category-tabs">
+            <button class="category-tab active" data-category="all">Hammasi</button>
+            <button class="category-tab" data-category="orders">Buyurtmalar</button>
+            <button class="category-tab" data-category="payment">To'lov</button>
+            <button class="category-tab" data-category="delivery">Yetkazib berish</button>
+            <button class="category-tab" data-category="account">Hisob</button>
+            <button class="category-tab" data-category="return">Qaytarish</button>
+        </div>
+
+        <div class="faq-section" id="faqContainer">
+            <!-- Buyurtmalar -->
+            <div class="faq-item" data-category="orders">
+                <div class="faq-question">
+                    <span>Qanday qilib buyurtma berish mumkin?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Buyurtma berish juda oson! Mahsulotni tanlang, "Savatga qo'shish" tugmasini bosing, keyin "Savat"ga o'ting va "Buyurtma berish" tugmasini bosing. Keyin yetkazib berish manzilini va to'lov usulini tanlang.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="orders">
+                <div class="faq-question">
+                    <span>Buyurtmani qanday bekor qilish mumkin?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Agar buyurtma hali jo'natilmagan bo'lsa, "Mening buyurtmalarim" bo'limiga o'ting va kerakli buyurtmani toping, "Bekor qilish" tugmasini bosing. Agar mahsulot allaqachon jo'natilgan bo'lsa, qaytarish jarayonini boshlashingiz kerak.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="orders">
+                <div class="faq-question">
+                    <span>Buyurtmamni qayerda kuzatishim mumkin?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        "Mening buyurtmalarim" bo'limiga kiring, kerakli buyurtmani tanlang va "Kuzatish" tugmasini bosing. Siz buyurtmangizning real vaqtdagi joylashuvini ko'rasiz.
+                    </div>
+                </div>
+            </div>
+
+            <!-- To'lov -->
+            <div class="faq-item" data-category="payment">
+                <div class="faq-question">
+                    <span>Qanday to'lov usullari mavjud?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Biz quyidagi to'lov usullarini qo'llab-quvvatlaymiz: bank kartalari (Visa, Mastercard, Humo, Uzcard), naqd pul (yetkazib berishda to'lash), Click, Payme, va bo'lib to'lash (3-12 oy).
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="payment">
+                <div class="faq-question">
+                    <span>Bo'lib to'lash qanday ishlaydi?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Bo'lib to'lash orqali siz mahsulotni hozir olishingiz va 3-12 oy davomida to'lashingiz mumkin. Foizsiz va qo'shimcha to'lovsiz! Shunchaki to'lov usuli sifatida "Bo'lib to'lash"ni tanlang.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="payment">
+                <div class="faq-question">
+                    <span>To'lovim xavfsizmi?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Ha, barcha to'lovlar 256-bit SSL shifrlash orqali himoyalangan. Biz sizning karta ma'lumotlaringizni saqlamaymiz va barcha to'lovlar xavfsiz to'lov tizimlar orqali amalga oshiriladi.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Yetkazib berish -->
+            <div class="faq-item" data-category="delivery">
+                <div class="faq-question">
+                    <span>Yetkazib berish qancha vaqt oladi?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Toshkent shahri bo'ylab - 1-2 ish kuni. O'zbekistonning boshqa shaharlari - 3-5 ish kuni. Tezkor yetkazib berish (24 soat ichida) ham mavjud, qo'shimcha to'lov bilan.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="delivery">
+                <div class="faq-question">
+                    <span>Yetkazib berish narxi qancha?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        500,000 so'mdan yuqori buyurtmalarda yetkazib berish bepul. 500,000 so'mdan past buyurtmalarda: Toshkent - 20,000 so'm, boshqa shaharlar - 30,000 so'm.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="delivery">
+                <div class="faq-question">
+                    <span>Punktdan olib ketishim mumkinmi?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Ha, albatta! Buyurtma berishda yetkazib berish usuli sifatida "Punktdan olish"ni tanlang. Sizga eng yaqin punktni xaritadan tanlashingiz mumkin. Bu xizmat mutlaqo bepul.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hisob -->
+            <div class="faq-item" data-category="account">
+                <div class="faq-question">
+                    <span>Qanday ro'yxatdan o'tish mumkin?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        "Kirish" tugmasini bosing, keyin "Ro'yxatdan o'tish"ni tanlang. Telefon raqamingizni kiriting, SMS kod keladi, kodni tasdiqlang va parol o'rnating. Tayyor!
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="account">
+                <div class="faq-question">
+                    <span>Parolimni unutdim, nima qilishim kerak?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        "Kirish" sahifasida "Parolni unutdingizmi?" tugmasini bosing. Telefon raqamingizni kiriting va SMS orqali kelgan kod bilan yangi parol o'rnating.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Qaytarish -->
+            <div class="faq-item" data-category="return">
+                <div class="faq-question">
+                    <span>Mahsulotni qaytarishim mumkinmi?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Ha, siz mahsulotni olganingizdan keyin 14 kun ichida qaytarishingiz mumkin. Mahsulot ishlatilmagan va asl qadoqlanganida bo'lishi kerak. Pul to'liq qaytariladi.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="return">
+                <div class="faq-question">
+                    <span>Qaytarish uchun nima kerak?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        "Mening buyurtmalarim" bo'limiga o'ting, "Qaytarish" tugmasini bosing va sabab ko'rsating. Biz kuryerni yuboramiz yoki eng yaqin punktga olib borishingiz mumkin. Mahsulotni asl qadoqlanganida saqlang.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-section" id="contact">
+        <div class="contact-container">
+            <h2>Javob topa olmadingizmi?</h2>
+            <p>Bizning qo'llab-quvvatlash jamoamiz sizga yordam berishga tayyor</p>
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3>Telefon</h3>
+                    <p>+998 94 056 12 32</p>
+                    <button class="contact-btn" onclick="alert('Qo\'ng\'iroq qilmoqda...')">Qo'ng'iroq qilish</button>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">💬</div>
+                    <h3>Chat</h3>
+                    <p>Onlayn chat yordamchi</p>
+                    <button class="contact-btn" onclick="alert('Chat ochilmoqda...')">Chatni ochish</button>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <p>support@marketplace.uz</p>
+                    <button class="contact-btn" onclick="alert('Email yuborilmoqda...')">Email yozish</button>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📱</div>
+                    <h3>Telegram</h3>
+                    <p>@marketplace_support</p>
+                    <button class="contact-btn" onclick="alert('Telegram ochilmoqda...')">Yozish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Vopros-Otvet. Barcha huquqlar himoyalangan.</p>
+        <p style="margin-top: 10px;">Ish vaqti: 24/7 | Biz doim sizga yordam berishga tayyormiz</p>
+    </footer>
+
+    <script>
+        function handleExit() {
+            if (confirm('Saytdan chiqmoqchimisiz?')) {
+                window.close();
+                window.location.href = 'about:blank';
+            }
+        }
+
+        // FAQ accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all items
+                faqItems.forEach(i => i.classList.remove('active'));
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Category filter
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const category = tab.dataset.category;
+                
+                // Update active tab
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Filter FAQ items
+                faqItems.forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Reset category filter
+            if (searchTerm) {
+                categoryTabs.forEach(t => t.classList.remove('active'));
+            }
+        });
+    </script>
+</body>
+</html>

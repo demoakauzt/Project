@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stat' Prodavcom - Sotuvchi bo'lish</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .exit-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .exit-btn:hover {
+            background: white;
+            color: #f5576c;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .hero-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 18px 50px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .hero-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .benefits {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .benefits h2 {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 50px;
+            color: #333;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .benefit-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            margin: 0 auto 25px;
+        }
+
+        .benefit-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .benefit-card p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .steps {
+            background: #f8f9fa;
+            padding: 80px 20px;
+        }
+
+        .steps-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .steps h2 {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 50px;
+            color: #333;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .step-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .step-card h3 {
+            font-size: 22px;
+            margin: 30px 0 15px;
+            color: #333;
+        }
+
+        .step-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .registration-form {
+            max-width: 700px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .registration-form h2 {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        .stats {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 80px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">🛍️ Stat' Prodavcom</a>
+            <div class="nav-links">
+                <a href="#benefits">Afzalliklar</a>
+                <a href="#steps">Qadamlar</a>
+                <a href="#register">Ro'yxatdan o'tish</a>
+                <a href="#contact">Aloqa</a>
+                <a href="./index.html">🚪 Chiqish</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Bizning platformamizda sotuvchi bo'ling!</h1>
+        <p>Millionlab mijozlarga mahsulotlaringizni soting</p>
+        <button class="hero-btn" onclick="scrollToForm()">Hozir boshlash 🚀</button>
+    </div>
+
+    <div class="benefits" id="benefits">
+        <h2>Nima uchun biz bilan ishlash kerak?</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">👥</div>
+                <h3>Katta Auditoriya</h3>
+                <p>5 million+ faol foydalanuvchi har kuni platformamizda xarid qilishadi</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">💰</div>
+                <h3>Yuqori Daromad</h3>
+                <p>Raqobatbardosh komissiya - faqat 5-10% sotuvdan</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">📦</div>
+                <h3>Logistika</h3>
+                <p>Bepul yetkazib berish xizmati va qadoqlash materiallari</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">📊</div>
+                <h3>Analitika</h3>
+                <p>Batafsil statistika va sotuvlarni kuzatish tizimi</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🎯</div>
+                <h3>Marketing</h3>
+                <p>Bepul reklama va mahsulotlarni ko'rsatish imkoniyatlari</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">💬</div>
+                <h3>24/7 Qo'llab-quvvatlash</h3>
+                <p>Doimiy yordam va maslahatlar bizning jamoamizdan</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">50,000+</div>
+                <div class="stat-label">Faol sotuvchilar</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">$500K+</div>
+                <div class="stat-label">O'rtacha oylik daromad</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Mijozlar qoniqish darajasi</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Yordam xizmati</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="steps" id="steps">
+        <div class="steps-container">
+            <h2>Qanday boshlash kerak?</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Ro'yxatdan o'ting</h3>
+                    <p>Quyidagi formani to'ldiring va bizning platformaga qo'shiling</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Hujjatlarni tayyorlang</h3>
+                    <p>Biznes hujjatlari va identifikatsiya ma'lumotlarini yuklang</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Do'koningizni sozlang</h3>
+                    <p>Mahsulotlarni qo'shing, narxlarni belgilang va dizaynni tanlang</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Sotishni boshlang</h3>
+                    <p>Platformamiz barcha logistika va to'lovlarni boshqaradi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="registration-form" id="register">
+        <h2>Hoziroq Ro'yxatdan O'ting!</h2>
+        <div class="form-container">
+            <form id="sellerForm">
+                <div class="form-group">
+                    <label>To'liq ism *</label>
+                    <input type="text" required placeholder="Ismingizni kiriting">
+                </div>
+                <div class="form-group">
+                    <label>Telefon raqam *</label>
+                    <input type="tel" required placeholder="+998 90 123 45 67">
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" required placeholder="email@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Kompaniya nomi *</label>
+                    <input type="text" required placeholder="Kompaniya nomini kiriting">
+                </div>
+                <div class="form-group">
+                    <label>Biznes turi *</label>
+                    <select required>
+                        <option value="">Tanlang</option>
+                        <option value="individual">Jismoniy shaxs</option>
+                        <option value="llc">MChJ / OOO</option>
+                        <option value="ip">Yakka tartibdagi tadbirkor</option>
+                        <option value="other">Boshqa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Mahsulot kategoriyasi *</label>
+                    <select required>
+                        <option value="">Tanlang</option>
+                        <option value="electronics">Elektronika</option>
+                        <option value="clothing">Kiyimlar</option>
+                        <option value="beauty">Go'zallik</option>
+                        <option value="food">Oziq-ovqat</option>
+                        <option value="books">Kitoblar</option>
+                        <option value="sport">Sport buyumlari</option>
+                        <option value="other">Boshqa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Qisqacha tavsif</label>
+                    <textarea placeholder="Biznesingiz haqida qisqacha ma'lumot bering..."></textarea>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">Foydalanish shartlari va maxfiylik siyosatiga roziman</label>
+                </div>
+                <button type="submit" class="submit-btn">Arizani yuborish 📨</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Stat' Prodavcom. Barcha huquqlar himoyalangan.</p>
+        <p style="margin-top: 10px;">📞 +998 94 056 12 32 | 📧 sellers@marketplace.uz</p>
+        <p style="margin-top: 5px;">Ish vaqti: Dushanba-Juma, 09:00-18:00</p>
+    </footer>
+
+    <script>
+        function handleExit() {
+            if (confirm('Saytdan chiqmoqchimisiz?')) {
+                window.close();
+                window.location.href = 'about:blank';
+            }
+        }
+
+        function scrollToForm() {
+            document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.getElementById('sellerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const name = this.querySelector('input[type="text"]').value;
+            
+            alert('Rahmat, ' + name + '! Sizning arizangiz qabul qilindi.\n\nBizning menejerimiz 24 soat ichida siz bilan bog\'lanadi.');
+            
+            this.reset();
+        });
+
+        const heroBtn = document.querySelector('.hero-btn');
+        heroBtn.addEventListener('mouseenter', function() {
+            this.textContent = 'Boshlaylik! 🎯';
+        });
+        heroBtn.addEventListener('mouseleave', function() {
+            this.textContent = 'Hozir boshlash 🚀';
+        });
+    </script>
+</body>
+</html>

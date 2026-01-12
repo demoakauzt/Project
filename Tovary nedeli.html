@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 Tovary nedeli - Haftalik Maxsus Takliflar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Chiqish tugmasi */
+        .exit-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .exit-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .exit-btn:active {
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        .timer {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 500px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .timer h3 {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .time-unit {
+            background: rgba(255,255,255,0.3);
+            padding: 15px 20px;
+            border-radius: 10px;
+            min-width: 80px;
+        }
+
+        .time-value {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .time-label {
+            font-size: 0.8em;
+            opacity: 0.9;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.8s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff4757;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            z-index: 1;
+            animation: pulse 2s infinite;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #2d3436;
+        }
+
+        .product-description {
+            color: #636e72;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .price-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #b2bec3;
+            font-size: 1.2em;
+        }
+
+        .new-price {
+            font-size: 2em;
+            font-weight: bold;
+            color: #00b894;
+        }
+
+        .discount {
+            background: #fdcb6e;
+            color: #2d3436;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .btn-buy {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-buy:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-buy:active {
+            transform: scale(0.98);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .countdown {
+                gap: 10px;
+            }
+
+            .time-unit {
+                min-width: 60px;
+                padding: 10px;
+            }
+
+            .time-value {
+                font-size: 1.5em;
+            }
+
+            .exit-btn {
+                top: 10px;
+                right: 10px;
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Chiqish tugmasi -->
+    <a href="./index.html" class="exit-btn" onclick="exitPage()">
+        <span>✖</span>
+        <span>Chiqish</span>
+    </a>
+
+    <div class="container">
+        <header>
+            <h1>🔥 Tovary nedeli</h1>
+            <p class="subtitle">Haftalik eng zo'r takliflar - chegirmalar 70% gacha!</p>
+        </header>
+
+        <div class="timer">
+            <h3>⏰ Takliflar tugashiga qoldi:</h3>
+            <div class="countdown">
+                <div class="time-unit">
+                    <span class="time-value" id="days">0</span>
+                    <span class="time-label">kun</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-value" id="hours">0</span>
+                    <span class="time-label">soat</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-value" id="minutes">0</span>
+                    <span class="time-label">daqiqa</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-value" id="seconds">0</span>
+                    <span class="time-label">soniya</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="badge">TOP TAKLIF</div>
+                <div class="product-image">📱</div>
+                <div class="product-info">
+                    <h3 class="product-title">Premium Smartphone</h3>
+                    <p class="product-description">Eng so'nggi texnologiya bilan jihozlangan smartfon. 128GB xotira, 48MP kamera va tez zaryadlash.</p>
+                    <div class="price-section">
+                        <span class="old-price">4,500,000 so'm</span>
+                        <span class="new-price">2,799,000 so'm</span>
+                        <span class="discount">-38%</span>
+                    </div>
+                    <button class="btn-buy" onclick="buyProduct('Smartphone')">Xarid qilish</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="badge">CHEGIRMA</div>
+                <div class="product-image">💻</div>
+                <div class="product-info">
+                    <h3 class="product-title">Ultra Noutbuk</h3>
+                    <p class="product-description">16GB RAM, 512GB SSD, Intel Core i7 protsessor. Ish va o'yin uchun ideal.</p>
+                    <div class="price-section">
+                        <span class="old-price">12,000,000 so'm</span>
+                        <span class="new-price">7,999,000 so'm</span>
+                        <span class="discount">-33%</span>
+                    </div>
+                    <button class="btn-buy" onclick="buyProduct('Noutbuk')">Xarid qilish</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="badge">YANGI</div>
+                <div class="product-image">🎧</div>
+                <div class="product-info">
+                    <h3 class="product-title">Wireless Quloqchinlar</h3>
+                    <p class="product-description">Shovqinni bloklash texnologiyasi, 30 soat batareya muddati va premium audio sifati.</p>
+                    <div class="price-section">
+                        <span class="old-price">850,000 so'm</span>
+                        <span class="new-price">499,000 so'm</span>
+                        <span class="discount">-41%</span>
+                    </div>
+                    <button class="btn-buy" onclick="buyProduct('Quloqchin')">Xarid qilish</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="badge">HIT</div>
+                <div class="product-image">⌚</div>
+                <div class="product-info">
+                    <h3 class="product-title">Smart Watch Pro</h3>
+                    <p class="product-description">Salomatlik monitoringi, sport rejimlari va suv o'tkazmaydigan korpus.</p>
+                    <div class="price-section">
+                        <span class="old-price">1,200,000 so'm</span>
+                        <span class="new-price">699,000 so'm</span>
+                        <span class="discount">-42%</span>
+                    </div>
+                    <button class="btn-buy" onclick="buyProduct('Smart Watch')">Xarid qilish</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="badge">AKSIYA</div>
+                <div class="product-image">📷</div>
+                <div class="product-info">
+                    <h3 class="product-title">4K Action Kamera</h3>
+                    <p class="product-description">Ekstremal sport uchun ideal. 4K video, suv o'tkazmaydigan va stabilizatsiya.</p>
+                    <div class="price-section">
+                        <span class="old-price">2,500,000 so'm</span>
+                        <span class="new-price">1,599,000 so'm</span>
+                        <span class="discount">-36%</span>
+                    </div>
+                    <button class="btn-buy" onclick="buyProduct('Kamera')">Xarid qilish</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="badge">OMMABOP</div>
+                <div class="product-image">🎮</div>
+                <div class="product-info">
+                    <h3 class="product-title">Gaming Konsoli</h3>
+                    <p class="product-description">Keyingi avlod o'yin konsoli. 1TB xotira va 2 ta bepul o'yin.</p>
+                    <div class="price-section">
+                        <span class="old-price">6,500,000 so'm</span>
+                        <span class="new-price">4,999,000 so'm</span>
+                        <span class="discount">-23%</span>
+                    </div>
+                    <button class="btn-buy" onclick="buyProduct('Konsol')">Xarid qilish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Haftaning oxirigacha qolgan vaqtni hisoblash
+        function updateCountdown() {
+            const now = new Date();
+            const dayOfWeek = now.getDay();
+            const daysUntilSunday = (7 - dayOfWeek) % 7 || 7;
+            
+            const endOfWeek = new Date(now);
+            endOfWeek.setDate(now.getDate() + daysUntilSunday);
+            endOfWeek.setHours(23, 59, 59, 999);
+            
+            const timeLeft = endOfWeek - now;
+            
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        function buyProduct(productName) {
+            alert(`${productName} savatchaga qo'shildi! 🛒\n\nXarid uchun rahmat! Tez orada siz bilan bog'lanamiz.`);
+        }
+
+        // Chiqish funksiyasi
+        function exitPage() {
+            if (confirm('Sahifadan chiqmoqchimisiz?')) {
+                window.close();
+            }
+        }
+    </script>
+</body>
+</html>
